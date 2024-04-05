@@ -12,7 +12,7 @@ const img = document.querySelector("img");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   for (let i = 0; i < series.length; i++) {
-    if (input.value.toUpperCase() === series[i].name.toUpperCase()) {
+    if (input.value.toUpperCase().replace(/\s/g, '') === series[i].name.toUpperCase().replace(/\s/g, '')) {
       errorWarner.textContent = "Serie déjà dans la liste !";
       input.value = "";
       return;
@@ -128,21 +128,34 @@ const toggleSerie = (index) => {
 const editSerie = (index) => {
   const li = document.createElement("li");
   let currentName = series[index - 1].name;
+
   const input = document.createElement("input");
   input.type = "text";
   input.value = currentName;
+
   const cancel = document.createElement("button");
   cancel.innerText = "Cancel";
+
   cancel.addEventListener("click", () => {
     displaySeries();
   });
+
   const save = document.createElement("button");
   save.innerText = "Save";
+
   save.addEventListener("click", () => {
+    for (let i = 0; i < series.length; i++) {
+      if (input.value.toUpperCase().replace(/\s/g, '') === series[i].name.toUpperCase().replace(/\s/g, '')) {
+        errorWarner.textContent = "Serie déjà dans la liste !";
+        input.value = "";
+        return;
+      }
+    }
+    
     if (input.value === "") {
       errorWarner.textContent = "Aucune saisie";
       displaySeries();
-    } else if (input.value.toUpperCase() === currentName.toUpperCase()) {
+    } else if (input.value.toUpperCase().replace(/\s/g, '') === currentName.toUpperCase().replace(/\s/g, '')) {
       errorWarner.textContent = "Même Titre";
       displaySeries();
     } else {
@@ -150,6 +163,7 @@ const editSerie = (index) => {
       displaySeries();
     }
   });
+
   li.append(input, save, cancel);
   ul.replaceChild(li, ul.children[index]);
 };
