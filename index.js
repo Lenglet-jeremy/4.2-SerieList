@@ -144,6 +144,7 @@ const editSerie = (index) => {
   save.innerText = "Save";
 
   save.addEventListener("click", () => {
+    
     for (let i = 0; i < series.length; i++) {
       if (input.value.toUpperCase().replace(/\s/g, '') === series[i].name.toUpperCase().replace(/\s/g, '')) {
         errorWarner.textContent = "Serie déjà dans la liste !";
