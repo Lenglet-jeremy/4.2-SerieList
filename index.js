@@ -65,7 +65,9 @@ const image = [
 ];
 
 const displaySeries = () => {
-  ul.innerText = "";
+  ul.innerText = "";      
+  errorWarner.textContent = "";
+
   const seriesNode = series.map((serie, index) => {
     return createSerieElement(serie, index);
   });
